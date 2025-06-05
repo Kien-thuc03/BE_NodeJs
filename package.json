@@ -1,0 +1,25 @@
+{
+    "name": "be_nodejs",
+    "version": "1.0.0",
+    "main": "src/server.js",
+    "scripts": {
+        "test": "echo \"Error: no test specified\" && exit 1",
+        "start": "npx nodemon src/server.js"
+    },
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/Kien-thuc03/BE_NodeJs.git"
+    },
+    "author": "fil",
+    "license": "ISC",
+    "bugs": {
+        "url": "https://github.com/Kien-thuc03/BE_NodeJs/issues"
+    },
+    "homepage": "https://github.com/Kien-thuc03/BE_NodeJs#readme",
+    "description": "",
+    "dependencies": {
+        "dotenv": "^16.5.0",
+        "express": "^5.1.0",
+        "nodemon": "^3.1.10"
+    }
+}
