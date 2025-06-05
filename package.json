@@ -1,10 +1,11 @@
 {
     "name": "be_nodejs",
     "version": "1.0.0",
-    "main": "src/server.js",
+    "main": "src/app.js",
     "scripts": {
         "test": "echo \"Error: no test specified\" && exit 1",
-        "start": "npx nodemon src/server.js"
+        "start": "npx nodemon src/app.js",
+        "lint": "eslint src --ext js --report-unused-disable-directives --max-warnings 0"
     },
     "repository": {
         "type": "git",
@@ -18,8 +19,20 @@
     "homepage": "https://github.com/Kien-thuc03/BE_NodeJs#readme",
     "description": "",
     "dependencies": {
+        "bcrypt": "^6.0.0",
+        "cors": "^2.8.5",
         "dotenv": "^16.5.0",
         "express": "^5.1.0",
-        "nodemon": "^3.1.10"
+        "jsonwebtoken": "^9.0.2",
+        "mongoose": "^8.15.1",
+        "nodemon": "^3.1.10",
+        "swagger-jsdoc": "^6.2.8",
+        "swagger-ui-express": "^5.0.1"
+    },
+    "devDependencies": {
+        "@eslint/js": "^9.28.0",
+        "eslint": "^9.28.0",
+        "eslint-plugin-react": "^7.37.5",
+        "globals": "^16.2.0"
     }
 }
