@@ -14,7 +14,7 @@ app.use(express.urlencoded({ extended: true }));
 app.use('/api', routes);
 
 // Cấu hình Swagger UI
-swaggerDocs(app, process.env.PORT || 3000);
+swaggerDocs(app, process.env.PORT || 5000);
 
 // Error handling middleware
 app.use((err, req, res, next) => {

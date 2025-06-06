@@ -140,13 +140,12 @@ const register = async(req, res) => {
  *           schema:
  *             type: object
  *             required:
- *               - email
+ *               - institutional_id
  *               - password
  *             properties:
- *               email:
+ *               institutional_id:
  *                 type: string
- *                 format: email
- *                 description: Email người dùng
+ *                 description: Mã định danh người dùng
  *               password:
  *                 type: string
  *                 format: password
@@ -179,14 +178,14 @@ const register = async(req, res) => {
  */
 const login = async(req, res) => {
     try {
-        const { email, password } = req.body;
+        const { institutional_id, password } = req.body;
 
         // Tìm user với email
-        const user = await User.findOne({ email });
+        const user = await User.findOne({ institutional_id });
         if (!user) {
             return res.status(401).json({
                 status: 'error',
-                message: 'Email hoặc mật khẩu không đúng'
+                message: 'Mã định danh hoặc mật khẩu không đúng'
             });
         }
 
@@ -203,14 +202,14 @@ const login = async(req, res) => {
         if (!isPasswordMatch) {
             return res.status(401).json({
                 status: 'error',
-                message: 'Email hoặc mật khẩu không đúng'
+                message: 'Mã định danh hoặc mật khẩu không đúng'
             });
         }
 
         // Tạo JWT token
         const token = jwt.sign({
                 id: user._id,
-                email: user.email,
+                institutional_id: user.institutional_id,
                 role: user.role
             },
             config.jwt.secret, { expiresIn: `${config.jwt.accessExpirationMinutes}m` }
@@ -222,7 +221,7 @@ const login = async(req, res) => {
             data: {
                 user: {
                     id: user._id,
-                    email: user.email,
+                    institutional_id: user.institutional_id,
                     full_name: user.full_name,
                     role: user.role
                 },
