@@ -163,7 +163,7 @@ const register = async(req, res) => {
  *                   properties:
  *                     id:
  *                       type: string
- *                     email:
+ *                     institutional_id:
  *                       type: string
  *                     full_name:
  *                       type: string
