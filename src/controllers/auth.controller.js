@@ -218,15 +218,13 @@ const login = async(req, res) => {
         // Trả về thông tin user và token
         res.status(200).json({
             status: 'success',
-            data: {
-                user: {
-                    id: user._id,
-                    institutional_id: user.institutional_id,
-                    full_name: user.full_name,
-                    role: user.role
-                },
-                token
-            }
+            user: {
+                id: user._id,
+                institutional_id: user.institutional_id,
+                full_name: user.full_name,
+                role: user.role
+            },
+            token
         });
     } catch (error) {
         res.status(500).json({
@@ -237,7 +235,63 @@ const login = async(req, res) => {
     }
 };
 
+/**
+ * @swagger
+ * /api/auth/logout:
+ *   post:
+ *     summary: Đăng xuất người dùng
+ *     description: Đăng xuất người dùng và hủy token
+ *     tags: [Authentication]
+ *     responses:
+ *       200:
+ *         description: Đăng xuất thành công
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 status:
+ *                   type: string
+ *                   example: success
+ *                 message:
+ *                   type: string
+ *                   example: Đăng xuất thành công
+ *       401:
+ *         description: Đăng xuất thất bại
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 status:
+ *                   type: string
+ *                   example: error
+ *                 message:
+ *                   type: string
+ *                   example: Đăng xuất thất bại
+ */
+const logout = async(req, res) => {
+    try {
+        const token = req.headers.authorization.split(' ')[1];
+        const decoded = jwt.verify(token, config.jwt.secret);
+
+        // Xóa token khỏi database
+        await Token.deleteOne({ token });
+
+        res.status(200).json({
+            status: 'success',
+            message: 'Đăng xuất thành công'
+        });
+    } catch (error) {
+        res.status(401).json({
+            status: 'error',
+            message: 'Đăng xuất thất bại'
+        });
+    }
+};
+
 module.exports = {
     register,
-    login
+    login,
+    logout
 };
